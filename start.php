@@ -1,29 +1,27 @@
 <?php
 /**
- * Instagram initialize
+ * Landr initialize
  * 
  */
 
-elgg_register_event_handler('init', 'system', 'instagram_init');
+elgg_register_event_handler('init', 'system', 'landr_init');
 
-function instagram_init() {
-	// Add to the main css
-	elgg_extend_view('elgg.css', 'instagram/css');
-	// Add an Instagram widget
-	elgg_register_widget_type('instagram', elgg_echo('instagram'), elgg_echo('instagram:widget:description'));
-	// Instagram single post
-	elgg_register_ajax_view('instagram/view');
+function landr_init() {
+	elgg_register_page_handler('', 'landr');
+	elgg_register_ajax_view('landr/upload');
+	elgg_register_ajax_view('landr/imgur');
 }
 
-function format_num($num, $precision = 2) {
-  	if ($num >= 1000 && $num < 1000000) {
-  		  $n_format = number_format($num/1000,$precision).'k';
-  	} else if ($num >= 1000000 && $num < 1000000000) {
-  		  $n_format = number_format($num/1000000,$precision).'m';
-  	} else if ($num >= 1000000000) {
-  		  $n_format=number_format($num/1000000000,$precision).'b';
-  	} else {
-  		  $n_format = $num;
-  	}
-  	return $n_format;
-} 
+function landr() {
+	if (!include_once(dirname(__FILE__) . "/index.php")) {
+		return false;
+	}
+
+	return true;
+}
+
+function sslCheck() {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $domainName = $_SERVER['HTTP_HOST'].'/';
+    return $protocol.$domainName;
+}
