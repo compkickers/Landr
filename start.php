@@ -1,7 +1,7 @@
 <?php
 /**
  * Landr initialize
- * 
+ *
  */
 
 elgg_register_event_handler('init', 'system', 'landr_init');
@@ -13,8 +13,10 @@ function landr_init() {
 }
 
 function landr() {
-	if (!include_once(dirname(__FILE__) . "/index.php")) {
-		return false;
+	if (elgg_is_logged_in()) {
+		forward('activity');
+	} else {
+		echo elgg_view_page('', elgg_view_layout('landr'));
 	}
 
 	return true;
