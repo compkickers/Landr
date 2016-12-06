@@ -12,11 +12,6 @@ elgg_unregister_plugin_hook_handler('prepare', 'menu:site', '_elgg_site_menu_set
 elgg_unregister_menu_item('footer', 'powered');
 elgg_extend_view('page/elements/footer', 'landr/footer');
 
-// If user logs in then forward to activity
-if (elgg_is_logged_in()) {
-	header("Location: activity");
-}
-
 if ($menu_style == '' || $menu_style == 'mobile') {
     elgg_extend_view('page/elements/header', 'landr/menu');
 }
